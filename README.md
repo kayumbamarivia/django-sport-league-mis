@@ -36,4 +36,5 @@ To run this project, you need to have the following software installed:
 
 1. **Clone the Repository**
    git clone https://github.com/kayumbamarivia/sports-league-management-system.git
-   cd sports-league-management-system
+
+    cd sports-league-management-system
