@@ -11,9 +11,6 @@ This project is designed to make managing sports leagues easy and organized, pro
 5. [Usage](#usage)
 6. [Project Structure](#project-structure)
 7. [Technologies Used](#technologies-used)
-8. [Future Enhancements](#future-enhancements)
-9. [Contributing](#contributing)
-10. [License](#license)
 
 ## Features
 
