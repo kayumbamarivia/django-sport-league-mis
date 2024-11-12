@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ form.instance.pk|yesno:"Edit Team,Add Team" }}</h1>
+<form method="POST" novalidate>
+    {% csrf_token %}
+    <label for="id_name">Team Name:</label>
+    <input type="text" name="name" id="id_name" value="{{ form.name.value }}" />
+    {% if form.name.errors %}
+        <p>{{ form.name.errors }}</p>
+    {% endif %}
+
+    <label for="id_coach">Coach:</label>
+    <select name="coach" id="id_coach">
+        {% for coach in form.coach.field.choices %}
+            <option value="{{ coach.0 }}" {% if coach.0 == form.coach.value %}selected{% endif %}>
+                {{ coach.1 }}
+            </option>
+        {% endfor %}
+    </select>
+    {% if form.coach.errors %}
+        <p>{{ form.coach.errors }}</p>
+    {% endif %}
+
+    <label for="id_players">Players:</label>
+    <input type="text" name="players" id="id_players" value="{{ form.players.value }}" />
+    {% if form.players.errors %}
+        <p>{{ form.players.errors }}</p>
+    {% endif %}
+
+    <div class="form-buttons">
+        <button type="submit">Save</button>
+        <a href="/teams">Cancel</a>
+    </div>
+</form>
+{% endblock %}

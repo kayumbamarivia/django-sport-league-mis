@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="delete-confirmation">
+    <h1>Delete League</h1>
+    <p>Are you sure you want to delete "{{ league.name }}"?</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Delete</button>
+    </form>
+    <a href="/leagues">Cancel</a>
+</div>
+{% endblock %}

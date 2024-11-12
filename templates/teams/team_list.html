@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Teams</h1>
+<a href="add/" class="login-link">Add Team</a>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Coach</th>
+            <th>Players</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for team in teams %}
+        <tr>
+            <td><a href="{{team.pk}}/players/">{{ team.name }}</a></td>
+            <td>{{ team.coach }}</td>
+            <td>
+                <div class="players-count">{{ team.players_list|length }} Players</div>
+            </td>
+            <td>
+                <a href="{{ team.pk }}/edit/" class="edit-button">Edit</a>
+                <a href="{{ team.pk }}/delete/" class="delete-button">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

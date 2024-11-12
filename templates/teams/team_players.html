@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Players for Team: {{ team.name }}</h1>
+<a href="/teams" class="back-button">Back to Teams</a>
+
+<div class="players-container">
+    {% for player in players %}
+    <div class="player-card">
+        <h2>{{ player }}</h2>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
