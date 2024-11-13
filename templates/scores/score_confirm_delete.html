@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Delete Score</h2>
+    <p>Are you sure you want to delete the score for {{ score.match }} ({{ score.score_team1 }} - {{ score.score_team2 }})?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="delete-button">Yes, Delete</button>
+        <a href="{% url 'score_list' %}">No, Cancel</a>
+    </form>
+</div>
+{% endblock %}

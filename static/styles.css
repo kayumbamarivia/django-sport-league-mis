@@ -304,3 +304,196 @@ tbody a:hover {
 .players-count {
     font-weight: bold;
 }
+
+
+/* Scoped Styles for Match List Page */
+.match-list-container {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.match-list-container h2 {
+    color: #0077b6;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.match-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.match-list-table thead {
+    background-color: #90e0ef;
+    color: white;
+}
+
+.match-list-table thead th {
+    padding: 12px;
+    text-align: left;
+}
+
+.match-list-table tbody tr {
+    border-bottom: 1px solid #ddd;
+}
+
+.match-list-table tbody td {
+    padding: 12px;
+}
+
+.match-list-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.match-list-table a {
+    color: #0077b6;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.match-list-table a:hover {
+    text-decoration: underline;
+}
+
+/* Buttons */
+.match-list-btn-create {
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.match-list-btn-create:hover {
+    background-color: #005f73;
+}
+
+/* Scoped Styles for Match Detail Page */
+.match-detail-container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.match-detail-container p {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+/* Scoped Styles for Match Form Pages (Create/Update) */
+.match-form-container {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.match-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.match-form-container form label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.match-form-container form input,
+.match-form-container form select {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.match-form-container form input:focus,
+.match-form-container form select:focus {
+    border-color: #0077b6;
+    outline: none;
+}
+
+.match-form-container form button {
+    background-color: #0077b6;
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.match-form-container form button:hover {
+    background-color: #005f73;
+}
+
+.match-form-container form a {
+    text-align: center;
+    color: #0077b6;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.match-form-container form a:hover {
+    text-decoration: underline;
+}
+
+/* Scoped Styles for Delete Confirmation Page */
+.match-delete-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.match-delete-container p {
+    font-size: 1.1rem;
+    margin-bottom: 30px;
+    color: #555;
+}
+
+.match-delete-container button {
+    background-color: #d90429;
+    padding: 10px 20px;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.match-delete-container button:hover {
+    background-color: #9d0208;
+}
+
+.match-delete-container a {
+    margin-left: 20px;
+    color: #0077b6;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.match-delete-container a:hover {
+    text-decoration: underline;
+}
+
+
+
+.back-button:hover {
+    background-color: #bbb;
+}
+

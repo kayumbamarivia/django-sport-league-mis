@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ form.instance.pk|yesno:"Edit Schedule,Create Schedule" }}</h2>
+    <form method="post" class="schedule-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="form-buttons">
+            <button type="submit">Save</button>
+            <a href="{% url 'schedule_list' %}">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

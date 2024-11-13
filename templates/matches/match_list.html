@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>All Matches</h2>
+    <a href="{% url 'match_create' %}" class="login-link">Create New Match</a>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for match in matches %}
+            <tr>
+                <td>{{ match.date }}</td>
+                <td>
+                    <a href="{% url 'match_detail' match.pk %}" class="view-button">View</a>
+                    <a href="{% url 'match_update' match.pk %}" class="edit-button">Edit</a>
+                    <a href="{% url 'match_delete' match.pk %}" class="delete-button">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

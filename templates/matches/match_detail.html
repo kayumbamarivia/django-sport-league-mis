@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Match Details</h2>
+    <div class="match-details">
+        <p><strong>Date:</strong> {{ match.date }}</p>
+        <p><strong>Location:</strong> {{ match.venue}}</p>
+        <p><strong>Teams:</strong> {{ match.team1 }} vs {{ match.team2 }}</p>
+    </div>
+    <a href="{% url 'match_list' %}" class="back-button">Back to Match List</a>
+</div>
+{% endblock %}

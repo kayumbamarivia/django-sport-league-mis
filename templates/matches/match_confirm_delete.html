@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Confirm Deletion</h2>
+    <p>Are you sure you want to delete the match <strong>{{ match.name }}</strong>?</p>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="delete-button">Yes, Delete</button>
+    </form>
+    <a href="{% url 'match_list' %}" class="back-button">Cancel</a>
+</div>
+{% endblock %}

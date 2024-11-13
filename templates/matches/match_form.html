@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>{% if form.instance.pk %}Edit Match{% else %}Create New Match{% endif %}</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="edit-button">{% if form.instance.pk %}Update Match{% else %}Create Match{% endif %}</button>
+    </form>
+    
+    <a href="{% url 'match_list' %}" class="btn-back">Back to Match List</a>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>{{ form.instance.pk|yesno:"Edit Score,Add New Score" }}</h2>
+    <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.as_p }}
+        </div>
+        <button type="submit" class="edit-button">Save</button>
+        <a href="{% url 'score_list' %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

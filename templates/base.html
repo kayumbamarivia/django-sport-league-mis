@@ -8,27 +8,35 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Sports League Management System</h1>
-        <nav>
-            <a href="/">Home</a>
-            {% if user.is_authenticated %}
-                <a href="/leagues">Leagues</a>
-                <a href="/teams">Teams</a>
-                <a href="/schedules">Schedule</a>
-                <a href="/matches">Matches</a>
-                <a href="/scores">Scores</a>
-                <a href="/reports">Reports</a>
-                <a href="/logout">Logout</a>
-            {% else %}
-                <a href="/login">Login</a>
-                <a href="/register">Register</a>
-            {% endif %}
-        </nav>
+    <header class="header">
+        <div class="header-container">
+            <h1>Sports League Management System</h1>
+            <nav class="navbar">
+                <a href="/" class="nav-link">Home</a>
+                {% if user.is_authenticated %}
+                    <a href="/leagues" class="nav-link">Leagues</a>
+                    <a href="/teams" class="nav-link">Teams</a>
+                    <a href="/schedules" class="nav-link">Schedule</a>
+                    <a href="/matches" class="nav-link">Matches</a>
+                    <a href="/scores" class="nav-link">Scores</a>
+                    <a href="/reports" class="nav-link">Reports</a>
+                    <a href="/logout" class="nav-link">Logout</a>
+                    <a href="/admins/dashboard" class="nav-link">Admin Panel</a>
+                {% else %}
+                    <a href="/login" class="nav-link">Login</a>
+                    <a href="/register" class="nav-link">Register</a>
+                {% endif %}
+            </nav>
+        </div>
     </header>
+
     <div class="container">
         {% block content %}
         {% endblock %}
     </div>
+
+    <footer class="footer">
+        <p>&copy; 2024 Sports League Management System</p>
+    </footer>
 </body>
 </html>

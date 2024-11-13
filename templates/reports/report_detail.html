@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Report Detail</h2>
+    <div>
+        <p><strong>League:</strong> {{ report.league }}</p>
+        <p><strong>Generated At:</strong> {{ report.generated_at|date:"Y-m-d H:i" }}</p>
+        <p><strong>Content:</strong></p>
+        <div>{{ report.content }}</div>
+
+        <a href="{% url 'report_update' report.pk %}" class="edit-button">Edit Report</a>
+        <a href="{% url 'report_list' %}" class="btn-back">Back to List</a>
+    </div>
+</div>
+{% endblock %}

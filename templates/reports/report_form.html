@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>
+        {% if form.instance.pk %} Edit Report {% else %} Create New Report {% endif %}
+    </h2>
+    <div>
+        <form method="post">
+            {% csrf_token %}
+            <div class="mb-4">
+                <label for="id_league">League:</label>
+                {{ form.league }}
+            </div>
+            <div class="mb-4">
+                <label for="id_content">Content:</label>
+                {{ form.content }}
+            </div>
+            <button type="submit" class="edit-button">
+                {% if form.instance.pk %} Update Report {% else %} Create Report {% endif %}
+            </button>
+            <a href="{% url 'report_list' %}" class="btn-back">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

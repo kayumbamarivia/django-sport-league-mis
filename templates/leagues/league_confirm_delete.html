@@ -6,7 +6,7 @@
     <p>Are you sure you want to delete "{{ league.name }}"?</p>
     <form method="POST">
         {% csrf_token %}
-        <button type="submit">Delete</button>
+        <button type="submit" class="delete-button">Delete</button>
     </form>
     <a href="/leagues">Cancel</a>
 </div>

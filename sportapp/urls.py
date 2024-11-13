@@ -16,12 +16,20 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('users.urls')),
     path('teams/', include('teams.urls')),
     path('leagues/', include('leagues.urls')),
+    path('reports/', include('reports.urls')),
+    path('schedules/', include('schedule.urls')),
+    path('scores/', include('scores.urls')),
+    path('matches/', include('matches.urls')),
+    path('admins/dashboard/', views.admin_dashboard, name='admin_dashboard'),
 ]
+
+
 
 handler404 = 'users.views.unauthorized_access'

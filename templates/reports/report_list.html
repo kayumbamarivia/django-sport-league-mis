@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Reports</h2>
+    <a href="{% url 'report_create' %}" class="login-link">Create New Report</a>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>League</th>
+                    <th>Generated At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if reports %}
+                    {% for report in reports %}
+                    <tr>
+                        <td>{{ report.league }}</td>
+                        <td>{{ report.generated_at|date:"Y-m-d H:i" }}</td>
+                        <td>
+                            <a href="{% url 'report_detail' report.pk %}" class="view-button">View</a>
+                            <a href="{% url 'report_update' report.pk %}" class="edit-button">Edit</a>
+                            <a href="{% url 'report_delete' report.pk %}" class="delete-button">Delete</a>
+                        </td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="3">No reports found.</td>
+                    </tr>
+                    {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

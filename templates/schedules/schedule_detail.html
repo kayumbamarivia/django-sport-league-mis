@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Schedule Detail</h2>
+    <div class="schedule-detail">
+        <p><strong>Match:</strong> {{ schedule.match }}</p>
+        <p><strong>Status:</strong> {% if schedule.is_completed %}Completed{% else %}Pending{% endif %}</p>
+        <a href="{% url 'schedule_update' schedule.pk %}" class="edit-button">Edit Schedule</a>
+        <a href="{% url 'schedule_list' %}" class="btn-back">Back to List</a>
+    </div>
+</div>
+{% endblock %}

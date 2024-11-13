@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <h2>Scores List</h2>
+    <a href="{% url 'score_create' %}" class="btn-create">Add New Score</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Match</th>
+                <th>Score</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for score in scores %}
+                <tr>
+                    <td>{{ score.match }}</td>
+                    <td>{{ score.score_team1 }} - {{ score.score_team2 }}</td>
+                    <td>
+                        <a href="{% url 'score_detail' score.pk %}" class="view-button">View</a>
+                        <a href="{% url 'score_update' score.pk %}" class="edit-button">Edit</a>
+                        <a href="{% url 'score_delete' score.pk %}" class="delete-button">Delete</a>
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No scores found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
