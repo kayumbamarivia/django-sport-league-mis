@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Users List{% endblock %}
+
+{% block content %}
+    <div class="flex justify-between items-center mb-4">
+        <h2 class="text-3xl font-semibold">Users List</h2>
+        {% comment %} <a href="{% url 'register' %}" class="bg-green-500 text-white px-4 py-2 rounded-md">Add User</a> {% endcomment %}
+    </div>
+    
+    <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+        <table class="min-w-full text-sm">
+            <thead>
+                <tr class="bg-gray-800">
+                    <th class="p-4 text-white">Name</th>
+                    <th class="p-4 text-white">Email</th>
+                    <th class="p-4 text-white">Role</th>
+                    <th class="p-4 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in page_obj %}
+                <tr>
+                    <td class="p-4">{{ user.username }}</td>
+                    <td class="p-4">{{ user.email }}</td>
+                    <td class="p-4">{{ user.get_role_display }}</td>
+                    <td class="p-4">
+                        <a href="{% url 'edit_user' user.id %}" class="bg-blue-500 text-white px-4 py-2 rounded-md">Edit</a>
+                        <a href="{% url 'delete_user' user.id %}" class="bg-red-500 text-white px-4 py-2 rounded-md">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="flex justify-center mt-4">
+        <span class="mx-2">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        <div>
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="bg-gray-700 text-white px-4 py-2 rounded-md">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="bg-gray-700 text-white px-4 py-2 rounded-md">Previous</a>
+            {% endif %}
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="bg-gray-700 text-white px-4 py-2 rounded-md">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="bg-gray-700 text-white px-4 py-2 rounded-md">Last</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

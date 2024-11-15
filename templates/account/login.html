@@ -1,0 +1,24 @@
+<!-- templates/account/login.html -->
+{% extends "base.html" %}
+{% load socialaccount %}
+{% block content %}
+<div class="min-h-screen flex justify-center items-center bg-gray-50">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-96">
+        <h1 class="text-2xl font-bold text-center text-blue-500 mb-6">Continue with GitHub</h1>
+        <p class="text-gray-600 text-center mb-6">You are about to sign in using a third-party account from GitHub.</p>
+
+        <a href="{% provider_login_url 'github' %}" class="block w-full bg-gray-800 text-white text-center py-3 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-400">
+            <span class="flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 12l2 2l4-4"></path>
+                    <path d="M22 2L12 12l-5-5l-3 3l8 8L22 2z"></path>
+                </svg>
+                Sign in with GitHub
+            </span>
+        </a>
+        <p class="text-center text-gray-500 mt-6">
+            Don't have an account? <a href="/register" class="text-blue-500 hover:underline">Sign up</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

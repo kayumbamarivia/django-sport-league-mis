@@ -1,7 +1,8 @@
 from django.db import models
+from matches.models import Match
 
 class Schedule(models.Model):
-    match = models.OneToOneField('matches.Match', on_delete=models.CASCADE)
+    match = models.OneToOneField(Match, on_delete=models.CASCADE)
     is_completed = models.BooleanField(default=False)
 
     def __str__(self):

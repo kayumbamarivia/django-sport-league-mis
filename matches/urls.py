@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    # Matches
+    # Match-related URLs
     path('', views.match_list, name='match_list'),
     path('<int:pk>/', views.match_detail, name='match_detail'),
     path('add/', views.match_create, name='match_create'),

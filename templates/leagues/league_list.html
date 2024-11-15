@@ -1,41 +1,64 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>Leagues</h1>
-<a href="add/" class="login-link">Add League</a>
-<table>
-    <thead>
-        <tr>
-            <th>Name</th>
-            <th>Start</th>
-            <th>End</th>
-            <th>Teams</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for league in leagues %}
-        <tr>
-            <td>{{ league.name }}</td>
-            <td>{{ league.start_date }}</td>
-            <td>
-                <div class="players-count">{{ league.end_date }}</div>
-            </td>
-            <td>
-                {% if league.teams.count > 0 %}
-                    {% for team in league.teams.all %}
-                        {{ team.name }}{% if not forloop.last %} - {% endif %}
-                    {% endfor %}
-                {% else %}
-                    No teams assigned
+<div class="max-w-7xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">Leagues</h1>  
+    {% if user.role == 'admin' %}
+    <div class="mb-4 flex justify-end">
+        <a href="{% url 'league_create' %}" class="bg-gray-800 text-white px-4 py-2 rounded-md hover:bg-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+            Add League
+        </a>
+    </div>
+    {% endif %}
+    <table class="min-w-full bg-white border border-gray-300 rounded-lg overflow-hidden">
+        <thead>
+            <tr class="bg-gray-800">
+                <th class="px-6 py-3 text-left text-lg font-medium text-white">Name</th>
+                <th class="px-6 py-3 text-left text-lg font-medium text-white">Season</th>
+                <th class="px-6 py-3 text-left text-lg font-medium text-white">Teams</th>
+                {% if user.role == 'admin' %}
+                <th class="px-6 py-3 text-left text-lg font-medium text-white">Actions</th>
                 {% endif %}
-            </td>
-            <td>
-                <a href="{{ league.pk }}/edit/" class="edit-button">Edit</a>
-                <a href="{{ league.pk }}/delete/" class="delete-button">Delete</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            </tr>
+        </thead>
+        <tbody>
+            {% for league in page_obj %}
+                <tr class="border-t hover:bg-gray-50">
+                    <td class="px-6 py-4 text-gray-800">
+                        <a href="{% url 'league_detail' league.pk %}" class="text-blue-600 hover:text-blue-800">{{ league.name }}</a>
+                    </td>
+                    <td class="px-6 py-4 text-gray-600">{{ league.season }}</td>
+                    <td class="px-6 py-4 text-gray-600">
+                        <div class="text-sm text-gray-500">{{ league.teams_list|length }} Teams</div>
+                    </td>
+                    {% if user.role == 'admin' %}
+                    <td class="px-6 py-4 space-x-4">
+                        <a href="{% url 'league_update' league.pk %}" class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50">
+                            Edit
+                        </a>
+                        <a href="{% url 'league_delete' league.pk %}" class="bg-red-600 text-white px-4 py-2 rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50">
+                            Delete
+                        </a>
+                    </td>
+                    {% endif %}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="flex justify-center mt-6">
+        <div class="flex items-center space-x-2">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">First</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Previous</a>
+            {% endif %} 
+            <span class="px-4 py-2 text-gray-700">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400">Last</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
 {% endblock %}

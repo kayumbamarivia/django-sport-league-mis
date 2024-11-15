@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mx-auto p-8 bg-gradient-to-br from-gray-900 to-gray-800 rounded-lg shadow-lg">
+    <h1 class="text-3xl font-bold text-center text-indigo-300 mb-8">Sports and League Analytics</h1>
+    
+    <!-- Grid of Info Cards -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="p-6 bg-gradient-to-r from-blue-500 to-blue-700 rounded-lg shadow-xl hover:scale-105 transform transition-all duration-300">
+            <h2 class="text-xl font-semibold text-white">League Overview</h2>
+            <div class="mt-4 text-white">
+                <p class="text-lg">Total Matches Played: <span id="totalMatches">45</span></p>
+                <p class="text-lg">Total Teams: <span id="totalTeams">12</span></p>
+                <p class="text-lg">Total Goals: <span id="totalGoals">145</span></p>
+            </div>
+        </div>
+        
+        <div class="p-6 bg-gradient-to-r from-green-500 to-green-700 rounded-lg shadow-xl hover:scale-105 transform transition-all duration-300">
+            <h2 class="text-xl font-semibold text-white">Top Players</h2>
+            <div class="mt-4 text-white">
+                <ul id="topPlayers">
+                    <li>Player 1: 25 Goals</li>
+                    <li>Player 2: 18 Goals</li>
+                    <li>Player 3: 15 Goals</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="p-6 bg-gradient-to-r from-yellow-500 to-yellow-700 rounded-lg shadow-xl hover:scale-105 transform transition-all duration-300">
+            <h2 class="text-xl font-semibold text-white">Top Teams</h2>
+            <div class="mt-4 text-white">
+                <ul id="topTeams">
+                    <li>Team A: 10 Wins</li>
+                    <li>Team B: 8 Wins</li>
+                    <li>Team C: 7 Wins</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="mt-12">
+        <div class="flex justify-center space-x-8">
+            <div class="w-1/3 bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300">
+                <h2 class="text-xl font-semibold text-indigo-400 mb-4">Goals Over Time</h2>
+                <canvas id="goalsChart"></canvas>
+            </div>
+            <div class="w-1/3 bg-gray-800 p-6 rounded-lg shadow-lg hover:shadow-2xl transition-all duration-300">
+                <h2 class="text-xl font-semibold text-indigo-400 mb-4">Team Performance</h2>
+                <canvas id="teamChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Upcoming Matches -->
+    <div class="mt-12">
+        <h2 class="text-xl font-semibold text-gray-100 text-center mb-6">Upcoming Matches</h2>
+        <div id="upcomingMatches" class="space-y-4">
+            <div class="flex justify-between p-4 bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-lg text-white shadow-lg hover:scale-105 transform transition-all duration-300">
+                <span>Team A vs Team B</span>
+                <span>12/05/2024</span>
+            </div>
+            <div class="flex justify-between p-4 bg-gradient-to-r from-indigo-400 to-indigo-600 rounded-lg text-white shadow-lg hover:scale-105 transform transition-all duration-300">
+                <span>Team C vs Team D</span>
+                <span>15/05/2024</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Matches -->
+    <div class="mt-12">
+        <h2 class="text-xl font-semibold text-gray-100 text-center mb-6">Recent Matches</h2>
+        <div id="recentMatches" class="space-y-4">
+            <div class="flex justify-between p-4 bg-gradient-to-r from-gray-600 to-gray-800 rounded-lg text-white shadow-lg hover:scale-105 transform transition-all duration-300">
+                <span>Team A 2 - 1 Team B</span>
+                <span>10/05/2024</span>
+            </div>
+            <div class="flex justify-between p-4 bg-gradient-to-r from-gray-600 to-gray-800 rounded-lg text-white shadow-lg hover:scale-105 transform transition-all duration-300">
+                <span>Team C 3 - 2 Team D</span>
+                <span>09/05/2024</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+<script>
+// Goals Chart
+const goalsChartCtx = document.getElementById('goalsChart').getContext('2d');
+const goalsChart = new Chart(goalsChartCtx, {
+    type: 'line',
+    data: {
+        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+        datasets: [{
+            label: 'Goals Scored',
+            data: [5, 8, 10, 15, 18],
+            borderColor: 'rgba(75, 192, 192, 1)',
+            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+            tension: 0.1,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'rgb(75, 75, 75)'
+                }
+            }
+        }
+    }
+});
+
+// Team Performance Chart
+const teamChartCtx = document.getElementById('teamChart').getContext('2d');
+const teamChart = new Chart(teamChartCtx, {
+    type: 'bar',
+    data: {
+        labels: ['Team A', 'Team B', 'Team C'],
+        datasets: [{
+            label: 'Wins',
+            data: [10, 8, 7],
+            backgroundColor: [
+                'rgba(255, 159, 64, 0.7)',
+                'rgba(54, 162, 235, 0.7)',
+                'rgba(255, 99, 132, 0.7)'
+            ],
+            borderColor: 'rgba(0, 0, 0, 0.1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                labels: {
+                    color: 'rgb(75, 75, 75)'
+                }
+            }
+        }
+    }
+});
+</script>
+{% endblock %}

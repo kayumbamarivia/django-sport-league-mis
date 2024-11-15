@@ -1,7 +1,8 @@
 from django.db import models
+from matches.models import Match
 
 class Score(models.Model):
-    match = models.OneToOneField('matches.Match', on_delete=models.CASCADE)
+    match = models.OneToOneField(Match, on_delete=models.CASCADE)
     score_team1 = models.PositiveIntegerField()
     score_team2 = models.PositiveIntegerField()
 

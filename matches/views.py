@@ -2,13 +2,18 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Match
-from .models import Match
 from .forms import MatchForm
+from django.core.paginator import Paginator
 
 @login_required(login_url="/login/")
 def match_list(request):
     matches = Match.objects.all()
-    return render(request, 'matches/match_list.html', {'matches': matches})
+    paginator = Paginator(matches, 10)  # Show 10 matches per page
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    return render(request, 'matches/match_list.html', {'page_obj': page_obj})
+
 
 @login_required(login_url="/login/")
 def match_detail(request, pk):

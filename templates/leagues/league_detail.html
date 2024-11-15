@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">{{ league.name }} Details</h1>
+    <div class="space-y-4">
+        <div class="text-lg font-medium text-gray-700">
+            <span class="font-bold">Season:</span> {{ league.season }}
+        </div>
+        <div class="text-lg font-medium text-gray-700">
+            <span class="font-bold">Start Date:</span> {{ league.start_date }}
+        </div>
+        <div class="text-lg font-medium text-gray-700">
+            <span class="font-bold">End Date:</span> {{ league.end_date }}
+        </div>
+    </div>
+    <div class="mt-6">
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">
+            {% if league.teams.count == 1 %}
+                1 Team
+            {% else %}
+                {{ league.teams.count }} Teams
+            {% endif %}
+            in this League
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for team in league.teams.all %}
+                <div class="bg-gray-100 p-4 rounded-lg shadow-md">
+                    <h3 class="text-lg font-semibold text-gray-700">{{ team.name }}</h3>
+                    <p class="text-sm text-gray-600">Coach: {{ team.coach }}</p>
+                    <a href="{% url 'team_players' team.pk %}" class="text-gray-600 hover:text-gray-800 mt-2 inline-block">
+                        View Players
+                    </a>
+                </div>
+            {% empty %}
+                <p class="text-gray-600">No teams have been assigned to this league yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="mt-6 flex justify-end">
+        <a href="{% url 'league_update' league.pk %}" class="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-400 focus:ring-opacity-50">
+            Edit League
+        </a>
+    </div>
+</div>
+{% endblock %}

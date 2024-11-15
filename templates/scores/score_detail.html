@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
-{% load static %}
-
 {% block content %}
-<div class="container">
-    <h2>Score Detail</h2>
-    <div class="score-detail">
-        <p><strong>Match:</strong> {{ score.match }}</p>
-        <p><strong>Score:</strong> {{ score.score_team1 }} - {{ score.score_team2 }}</p>
-        <a href="{% url 'score_update' score.pk %}" class="edit-button">Edit Score</a>
-        <a href="{% url 'score_list' %}">Back to List</a>
+<div class="max-w-lg mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
+    <h1 class="text-2xl font-semibold text-center mb-6 text-gray-800">Score Details</h1>
+    <p class="text-lg"><strong>Match:</strong> {{ score.match }}</p>
+    <p class="text-lg"><strong>Team 1 Score:</strong> {{ score.score_team1 }}</p>
+    <p class="text-lg"><strong>Team 2 Score:</strong> {{ score.score_team2 }}</p>
+
+    <div class="flex justify-center gap-4 mt-6">
+        {% if user.role == 'admin' %}
+        <a href="{% url 'score_update' score.pk %}" class="py-2 px-4 bg-yellow-600 text-white rounded-md hover:bg-yellow-700">Edit</a>
+        {% endif %}
+        <a href="{% url 'score_list' %}" class="py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700">Back</a>
     </div>
 </div>
 {% endblock %}

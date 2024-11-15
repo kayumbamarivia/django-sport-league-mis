@@ -1,40 +1,41 @@
 {% extends 'base.html' %}
-{% load static %}
-
 {% block content %}
-<div class="container">
-    <h2>Reports</h2>
-    <a href="{% url 'report_create' %}" class="login-link">Create New Report</a>
-
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th>League</th>
-                    <th>Generated At</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% if reports %}
-                    {% for report in reports %}
-                    <tr>
-                        <td>{{ report.league }}</td>
-                        <td>{{ report.generated_at|date:"Y-m-d H:i" }}</td>
-                        <td>
-                            <a href="{% url 'report_detail' report.pk %}" class="view-button">View</a>
-                            <a href="{% url 'report_update' report.pk %}" class="edit-button">Edit</a>
-                            <a href="{% url 'report_delete' report.pk %}" class="delete-button">Delete</a>
-                        </td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="3">No reports found.</td>
-                    </tr>
-                    {% endfor %}
-                {% endif %}
-            </tbody>
-        </table>
+<div class="max-w-4xl mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
+    <div class="flex justify-between items-center mb-6">
+        <h1 class="text-3xl font-semibold text-gray-800">Reports</h1>
+        {% if user.role == 'admin' %}
+        <a href="{% url 'report_create' %}" class="inline-block px-6 py-2 text-white bg-gray-800 rounded-md hover:bg-gray-600 transition duration-200">
+            Add New Report
+        </a>
+        {% endif %}
     </div>
+    <table class="w-full border-collapse">
+        <thead>
+            <tr class="bg-gray-800">
+                <th class="py-2 px-4 border-b text-white">League</th>
+                <th class="py-2 px-4 border-b text-white">Generated At</th>
+                <th class="py-2 px-4 border-b text-white">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+                <tr class="hover:bg-gray-100">
+                    <td class="py-2 px-4 border-b">{{ report.league }}</td>
+                    <td class="py-2 px-4 border-b">{{ report.generated_at|date:"Y-m-d H:i" }}</td>
+                    <td class="py-2 px-4 border-b">
+                        <a href="{% url 'report_detail' report.pk %}" class="text-blue-600 hover:underline">View</a> |
+                        {% if user.role == 'admin' %}
+                        <a href="{% url 'report_update' report.pk %}" class="text-yellow-600 hover:underline">Edit</a> |
+                        <a href="{% url 'report_delete' report.pk %}" class="text-red-600 hover:underline">Delete</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3" class="py-4 text-center text-gray-600">No reports available.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}

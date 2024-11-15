@@ -1,13 +1,22 @@
 {% extends 'base.html' %}
-
 {% block content %}
-<div class="container">
-    <h2>Match Details</h2>
-    <div class="match-details">
-        <p><strong>Date:</strong> {{ match.date }}</p>
-        <p><strong>Location:</strong> {{ match.venue}}</p>
-        <p><strong>Teams:</strong> {{ match.team1 }} vs {{ match.team2 }}</p>
+<div class="max-w-xl mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
+    <h1 class="text-2xl font-semibold text-center mb-4 text-gray-800">Match Details</h1>
+    <div class="space-y-4">
+        <p><span class="font-semibold">Team 1:</span> {{ match.team1 }}</p>
+        <p><span class="font-semibold">Team 2:</span> {{ match.team2 }}</p>
+        <p><span class="font-semibold">Date:</span> {{ match.date|date:"d M Y, H:i" }}</p>
+        <p><span class="font-semibold">Venue:</span> {{ match.venue }}</p>
+        <p><span class="font-semibold">League:</span> {{ match.league }}</p>
+        <p><span class="font-semibold">Score:</span> {{ match.score_team1 }} - {{ match.score_team2 }}</p>
+        <p><span class="font-semibold">Status:</span> {{ match.get_status_display }}</p>
     </div>
-    <a href="{% url 'match_list' %}" class="back-button">Back to Match List</a>
+    <div class="mt-6 text-center">
+        {% if user.role == 'admin' %}
+        <a href="{% url 'match_update' match.pk %}" class="px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600">Edit</a>
+        <a href="{% url 'match_delete' match.pk %}" class="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Delete</a>
+        {% endif %}
+        <a href="{% url 'match_list' %}" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Back to List</a>
+    </div>
 </div>
 {% endblock %}

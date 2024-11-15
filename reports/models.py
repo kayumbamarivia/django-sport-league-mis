@@ -1,7 +1,8 @@
 from django.db import models
+from leagues.models import League
 
 class Report(models.Model):
-    league = models.ForeignKey('leagues.League', on_delete=models.CASCADE)
+    league = models.ForeignKey(League, on_delete=models.CASCADE)
     generated_at = models.DateTimeField(auto_now_add=True)
     content = models.TextField()
 

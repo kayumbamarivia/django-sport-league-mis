@@ -1,6 +1,57 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
+<style>
+    /* Make the entire background image cover the screen */
+    body {
+        background-image: url('{% static "001.jpeg" %}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+    }
+
+    .welcome {
+        background: rgba(0, 0, 0, 0.6); /* Add a dark overlay for better text readability */
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        max-width: 600px;
+        width: 90%;
+    }
+
+    .welcome h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #ffda79; /* Light yellow for a vibrant header */
+    }
+
+    .welcome p {
+        font-size: 1.2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .welcome a {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background-color: #ff6347; /* Tomato color for the button */
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 1rem;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+    }
+
+    .welcome a:hover {
+        background-color: #ff4500; /* Darker shade on hover */
+    }
+</style>
+
 <div class="welcome">
     <h1>Welcome to the Sports League Management System</h1>
     <p>Manage teams, schedules, scores, and more in one place.</p>

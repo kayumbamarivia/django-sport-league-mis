@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
-{% load static %}
-
 {% block content %}
-<div class="container">
-    <h2>Delete Schedule</h2>
-    <p>Are you sure you want to delete the schedule for "{{ schedule.match }}"?</p>
-    <form method="post">
+<div class="max-w-md mx-auto mt-10 p-6 bg-white shadow-md rounded-md">
+    <h1 class="text-2xl font-semibold text-center text-red-600 mb-4">Confirm Deletion</h1>
+    <p class="text-center text-gray-700 mb-6">Are you sure you want to delete the schedule for <strong>{{ schedule.match }}</strong>?</p>
+    <form method="POST">
         {% csrf_token %}
-        <div class="form-buttons">
-            <button type="submit" class="delete-button">Yes, Delete</button>
-            <a href="{% url 'schedule_list' %}" class="btn-back">No, Cancel</a>
+        <div class="flex justify-center gap-4">
+            <button type="submit" class="py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700">
+                Yes, Delete
+            </button>
+            <a href="{% url 'schedule_list' %}" class="py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700">
+                Cancel
+            </a>
         </div>
     </form>
 </div>

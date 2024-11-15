@@ -1,36 +1,82 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<h1>{{ form.instance.pk|yesno:"Edit Team,Add Team" }}</h1>
-<form method="POST" novalidate>
-    {% csrf_token %}
-    <label for="id_name">Team Name:</label>
-    <input type="text" name="name" id="id_name" value="{{ form.name.value }}" />
-    {% if form.name.errors %}
-        <p>{{ form.name.errors }}</p>
-    {% endif %}
+<div class="max-w-7xl mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h1 class="text-3xl font-semibold text-center text-gray-800 mb-6">
+        {{ form.instance.pk|default:"Create" }} Team
+    </h1>
 
-    <label for="id_coach">Coach:</label>
-    <select name="coach" id="id_coach">
-        {% for coach in form.coach.field.choices %}
-            <option value="{{ coach.0 }}" {% if coach.0 == form.coach.value %}selected{% endif %}>
-                {{ coach.1 }}
-            </option>
-        {% endfor %}
-    </select>
-    {% if form.coach.errors %}
-        <p>{{ form.coach.errors }}</p>
-    {% endif %}
+    <form method="POST" class="space-y-6">
+        {% csrf_token %}
 
-    <label for="id_players">Players:</label>
-    <input type="text" name="players" id="id_players" value="{{ form.players.value }}" />
-    {% if form.players.errors %}
-        <p>{{ form.players.errors }}</p>
-    {% endif %}
+        <!-- Team Name Input -->
+        <div class="flex flex-col">
+            <label for="id_name" class="text-lg font-medium text-gray-700 mb-2">Team Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="text-red-500 text-sm mt-1">
+                    {% for error in form.name.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
 
-    <div class="form-buttons">
-        <button type="submit">Save</button>
-        <a href="/teams">Cancel</a>
-    </div>
-</form>
+        <!-- Coach Selection -->
+        <div class="flex flex-col">
+            <label for="id_coach" class="text-lg font-medium text-gray-700 mb-2">Select Coach</label>
+            {{ form.coach }}
+            {% if form.coach.errors %}
+                <div class="text-red-500 text-sm mt-1">
+                    {% for error in form.coach.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Players Multi-Select -->
+        <div class="flex flex-col">
+            <label for="id_players" class="text-lg font-medium text-gray-700 mb-2">Select Players</label>
+            {{ form.players }}
+            {% if form.players.errors %}
+                <div class="text-red-500 text-sm mt-1">
+                    {% for error in form.players.errors %}
+                        <p>{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Submit and Cancel Buttons -->
+        <div class="flex justify-between">
+            <button type="submit" class="bg-green-500 text-white py-3 px-6 rounded-lg hover:bg-green-600 transition duration-300">
+                {% if not form.instance.pk %}
+                    Create Team
+                {% else %}
+                    Update Team
+                {% endif %}
+            </button>
+            <a href="{% url 'team_list' %}" class="bg-gray-500 text-white py-3 px-6 rounded-lg hover:bg-gray-600 transition duration-300">
+                Cancel
+            </a>
+        </div>
+    </form>
+</div>
+
+<!-- Include Select2 Library -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+<!-- Initialize Select2 for the Players Multi-Select -->
+<script>
+    $(document).ready(function() {
+        $('#id_players').select2({
+            placeholder: "Select players",
+            allowClear: true,
+            width: '100%'
+        });
+    });
+</script>
 {% endblock %}

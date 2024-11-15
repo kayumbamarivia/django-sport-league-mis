@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="bg-gray-100 min-h-screen p-6">
+    <header class="flex justify-between items-center mb-8">
+      <h1 class="text-3xl font-bold text-gray-800">SLMS Dashboard</h1>
+      <div>
+        <a href="/leagues" class="text-blue-500 font-semibold mr-4">Leagues</a>
+        <a href="/teams" class="text-blue-500 font-semibold mr-4">Teams</a>
+        <a href="/players" class="text-blue-500 font-semibold mr-4">Players</a>
+        <a href="/reports" class="text-blue-500 font-semibold">Reports</a>
+      </div>
+    </header>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-lg font-semibold text-gray-700">Total Leagues</h2>
+        <p class="text-3xl font-bold text-blue-600">{{ total_leagues }}</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-lg font-semibold text-gray-700">Total Teams</h2>
+        <p class="text-3xl font-bold text-green-600">{{ total_teams }}</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-lg font-semibold text-gray-700">Total Players</h2>
+        <p class="text-3xl font-bold text-purple-600">{{ total_players }}</p>
+      </div>
+      <div class="bg-white shadow-lg rounded-lg p-6">
+        <h2 class="text-lg font-semibold text-gray-700">Total Reports</h2>
+        <p class="text-3xl font-bold text-red-600">{{ total_reports }}</p>
+      </div>
+    </div>
+    <div class="mb-8">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Recent Leagues</h2>
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="w-full">
+          <thead class="bg-gray-200 text-gray-600 uppercase text-sm">
+            <tr>
+              <th class="py-3 px-4 text-left">League Name</th>
+              <th class="py-3 px-4 text-left">Description</th>
+              <th class="py-3 px-4 text-left">Teams</th>
+              <th class="py-3 px-4 text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for league in recent_leagues %}
+            <tr class="border-b">
+              <td class="py-3 px-4">{{ league.name }}</td>
+              <td class="py-3 px-4">{{ league.description }}</td>
+              <td class="py-3 px-4">{{ league.teams.count }}</td>
+              <td class="py-3 px-4">
+                <a href="{% url 'league_detail' league.id %}" class="text-blue-500">View</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="mb-8">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-4">Recent Reports</h2>
+      <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="w-full">
+          <thead class="bg-gray-200 text-gray-600 uppercase text-sm">
+            <tr>
+              <th class="py-3 px-4 text-left">Report Title</th>
+              <th class="py-3 px-4 text-left">League</th>
+              <th class="py-3 px-4 text-left">Date</th>
+              <th class="py-3 px-4 text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for report in recent_reports %}
+            <tr class="border-b">
+              <td class="py-3 px-4">{{ report.title }}</td>
+              <td class="py-3 px-4">{{ report.league.name }}</td>
+              <td class="py-3 px-4">{{ report.created_at|date:"Y-m-d" }}</td>
+              <td class="py-3 px-4">
+                <a href="{% url 'report_detail' report.id %}" class="text-blue-500">View</a>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% if user.role == 'admin' %}
+    <div class="flex justify-around mt-8">
+      <a href="{% url 'league_create' %}" class="bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition duration-300">Add New League</a>
+      <a href="{% url 'team_create' %}" class="bg-green-500 text-white py-3 px-6 rounded-lg hover:bg-green-600 transition duration-300">Register New Team</a>
+      <a href="{% url 'report_create' %}" class="bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition duration-300">Create Report</a>
+    </div>
+    {% endif %}
+  </div>
+  
+{% endblock %}

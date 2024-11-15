@@ -1,14 +1,15 @@
 {% extends 'base.html' %}
-{% load static %}
-
 {% block content %}
-<div class="container">
-    <h2>Schedule Detail</h2>
-    <div class="schedule-detail">
-        <p><strong>Match:</strong> {{ schedule.match }}</p>
-        <p><strong>Status:</strong> {% if schedule.is_completed %}Completed{% else %}Pending{% endif %}</p>
-        <a href="{% url 'schedule_update' schedule.pk %}" class="edit-button">Edit Schedule</a>
-        <a href="{% url 'schedule_list' %}" class="btn-back">Back to List</a>
+<div class="max-w-lg mx-auto mt-8 p-6 bg-white shadow-md rounded-md">
+    <h1 class="text-2xl font-semibold text-center mb-6 text-gray-800">Schedule Detail</h1>
+    <p><strong>Match:</strong> {{ schedule.match }}</p>
+    <p><strong>Is Completed:</strong> {{ schedule.is_completed|yesno:"Yes,No" }}</p>
+    <div class="mt-6 text-center">
+        {% if user.role == 'admin' %}
+        <a href="{% url 'schedule_update' schedule.pk %}" class="inline-block py-2 px-4 bg-green-600 text-white rounded-md hover:bg-green-700">Edit</a>
+        <a href="{% url 'schedule_delete' schedule.pk %}" class="inline-block py-2 px-4 bg-red-600 text-white rounded-md hover:bg-red-700">Delete</a>
+        {% endif %}
+        <a href="{% url 'schedule_list' %}" class="inline-block py-2 px-4 bg-gray-600 text-white rounded-md hover:bg-gray-700">Back to List</a>
     </div>
 </div>
 {% endblock %}

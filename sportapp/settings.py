@@ -28,10 +28,15 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 SITE_ID = 1
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
 AUTH_USER_MODEL = 'users.User'
 ALLOWED_HOSTS = [
     '127.0.0.1',
@@ -60,8 +65,15 @@ INSTALLED_APPS = [
     'reports',
     'scores',
     'schedule',
-    'matches'
+    'matches',
+     'widget_tweaks'
 ]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'django.contrib.auth.backends.RemoteUserBackend',
+]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -135,6 +147,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+    },
+      {
+        'NAME': 'sportapp.validators.CustomPasswordValidator',
     },
 ]
 
