@@ -14,7 +14,9 @@
             <tr class="bg-gray-800">
                 <th class="py-2 px-4 border-b text-white">League</th>
                 <th class="py-2 px-4 border-b text-white">Generated At</th>
+                {% if user.role == 'admin' %}
                 <th class="py-2 px-4 border-b text-white">Actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>

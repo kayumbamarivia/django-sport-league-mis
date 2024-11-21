@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-12">y
+<div class="max-w-6xl mx-auto p-6 bg-white shadow-lg rounded-lg mt-12">
     <div class="flex justify-between items-center mb-6">
         <h1 class="text-3xl font-semibold text-gray-800">Matches</h1>
         {% if user.role == 'admin' %}
@@ -20,7 +20,9 @@
                     <th class="py-3 px-4 text-left">League</th>
                     <th class="py-3 px-4 text-left">Score</th>
                     <th class="py-3 px-4 text-left">Status</th>
+                    {% if user.role == 'admin' %}
                     <th class="py-3 px-4 text-left">Actions</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
