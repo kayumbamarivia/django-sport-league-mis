@@ -1,0 +1,58 @@
+from users.models import User
+from django.contrib.auth.hashers import make_password
+from random import choice
+import string
+def generate_password(length=8):
+    characters = string.ascii_letters + string.digits
+    return ''.join(choice(characters) for i in range(length))
+
+users = []
+roles = ['ADMIN', 'COACH', 'PLAYER'] 
+
+for i in range(500000):
+    username = f"user{i+1}"
+    email = f"user{i+1}@example.com"
+    password = generate_password() 
+    role = choice(roles)  
+    user = User(
+        username=username,
+        email=email,
+        password=make_password(password),
+        role=role
+    )
+    users.append(user)
+
+User.objects.bulk_create(users)
+print(f"Successfully created {len(users)} users!")
+
+
+from teams.models import Team
+from users.models import User
+from random import choice
+from django.db import transaction
+
+# Get all coaches and players
+coaches = User.objects.filter(role='coach')
+players = User.objects.filter(role='player')
+
+# Check if enough coaches and players exist
+if not coaches.exists() or not players.exists():
+    raise Exception("Not enough coaches or players in the database. Make sure you have created enough users.")
+
+# Initialize the list of teams
+teams = []
+
+# Create 500,000 teams
+for i in range(500000):
+    team_name = f"Team {i+1}"
+    coach = choice(coaches)
+    team_players = [choice(players) for _ in range(10)]  # Assign 10 players to the team
+    team = Team(name=team_name, coach=coach)
+    teams.append(team)
+
+# Bulk create teams in the database inside a transaction
+with transaction.atomic():
+    Team.objects.bulk_create(teams)
+
+# Print the number of teams created
+print(f"Successfully created {len(teams)} teams!")
